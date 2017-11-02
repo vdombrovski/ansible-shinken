@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+define host{
+            use                  generic-host
+    {% for key, value in item.iteritems() %}
+        {% if key == 'hostgroups' %}
+            hostgroups                {{ value | join(",") }},all
+        {% else %}
+            {{ key }}      {{ value }}
+        {% endif %}
+    {% endfor %}
+}

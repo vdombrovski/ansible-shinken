@@ -1,0 +1,11 @@
+---
+- name: Set up Shinken CLI
+  command: shinken --init
+
+- name: Install retention_redis
+  command: shinken install retention-redis
+
+- name: Configure retention_redis
+  template:
+    dest: "{{config_dir}}/modules/retention-redis.cfg"
+    src: modules/retention-redis.cfg.j2

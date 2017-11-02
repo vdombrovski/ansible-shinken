@@ -1,0 +1,11 @@
+---
+- name: Set up Shinken CLI
+  command: shinken --init
+
+- name: Install named-pipe
+  command: shinken install named-pipe
+
+- name: Configure named-pipe
+  template:
+    dest: "{{config_dir}}/modules/named-pipe.cfg"
+    src: modules/named-pipe.cfg.j2

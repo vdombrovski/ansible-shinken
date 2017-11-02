@@ -36,7 +36,7 @@
 
 - name: Change broker-master configuration
   lineinfile:
-    dest={{ shinken_config_broker }}/broker-master.cfg
+    dest={{ config_dir }}/brokers/broker-master.cfg
     state=present
     regexp='.*[^#] modules.*'
     line="    modules {{ shinken_broker_modules }}"
@@ -44,4 +44,3 @@
   - Validate configuration
   - restart shinken broker
   - restart shinken arbiter
-

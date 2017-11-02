@@ -3,9 +3,10 @@
   # Service command can't be used as it doesn't support 'check'
   command: service shinken check
 
-- name: restart shinken arbiter
-  service: name=shinken-arbiter state=restarted
+- name: restart shinken systemd
+  when: "ansible_service_mgr == 'systemd'"
+  command: /usr/bin/systemd restart shinken.target
 
-- name: restart shinken broker
-  service: name=shinken-broker state=restarted
-
+- name: restart shinken
+  when: "ansible_service_mgr != 'systemd'"
+  service: name=shinken state=restarted

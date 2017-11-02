@@ -1,0 +1,9 @@
+define command {
+   command_name   nagios-forward-service-alert
+   command_line   /usr/bin/printf "%s\t%s\t%s\t%s\n" "$HOSTNAME$" "$SERVICEDESC$" "$SERVICESTATEID$" "$SERVICEOUTPUT$|$SERVICEPERFDATA$" | /usr/sbin/send_nsca -c /etc/send_nsca.cfg
+}
+
+define command {
+   command_name   nagios-forward-host-alert
+   command_line   /usr/bin/printf "%s\t%s\t%s\n" "$HOSTNAME$" "$HOSTSTATEID$" "$HOSTOUTPUT$" | /usr/sbin/send_nsca -c /etc/send_nsca.cfg
+}

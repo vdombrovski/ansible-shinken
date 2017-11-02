@@ -1,0 +1,38 @@
+---
+
+- name: Compatibility check
+  when: "\'{{ansible_distribution}}-{{ansible_distribution_version}}\' not in supported_distros"
+  fail:
+    msg: "{{ansible_distribution}}-{{ansible_distribution_version}} not in supported distros: {{supported_distros | join(', ')}}"
+
+- name: Repo check
+  when: not repourl
+  fail:
+    msg: "Shinken repository not specified"
+
+- name: Add repo key
+  when: repokey
+  apt_key:
+    url: "{{repokey}}"
+    state: present
+
+-  name: Add repo for Shinken
+   apt_repository:
+    repo: "deb {{repourl}}"
+    state: present
+    update_cache: yes
+
+- name: Gather OS specific variables
+  include_vars: "{{ ansible_os_family|lower }}.yml"
+
+- name: Install monitoring plugins
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - "{{ shinken_monitoring_plugins }}"
+
+- name: Install Shinken
+  package:
+    name: shinken
+    state: present

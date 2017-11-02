@@ -1,8 +1,7 @@
 # {{ ansible_managed }}
 define contact{
-    {# loop through all key:value pairs and output the results #}
+        use            generic-contact
     {% for key, value in item.iteritems() %}
         {{ key }}      {{ value }}
     {% endfor %}
 }
-

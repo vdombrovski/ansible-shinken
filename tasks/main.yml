@@ -1,12 +1,21 @@
 ---
-- include: prepare-for-install.yml
+- include: install.yml
 
-- include: install-shinken-packages.yml
+- include: configure.yml
 
-- include: configure-shinken.yml
+- include: mods/influxdb.yml
+  when: "mods['broker'] and ('influxdb' in mods['broker'])"
 
-- include: configure-shinken-webui.yml
-  when: '"webui2" in shinken_broker_modules'
+- include: mods/nagios_forward.yml
+  when: "mods['misc'] and ('forward_nagios' in mods['misc'])"
 
-- include: configure-systemd.yml
+- include: mods/openio_import.yml
+  when: "mods['arbiter'] and ('openio_import' in mods['arbiter'])"
 
+- include: mods/retention_redis.yml
+  when: "mods['scheduler'] and ('RedisRetention' in mods['scheduler'])"
+
+- include: mods/named_pipe.yml
+  when: "mods['arbiter'] and ('named-pipe' in mods['arbiter'])"
+
+- include: postinstall.yml

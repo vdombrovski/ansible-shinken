@@ -1,0 +1,39 @@
+---
+# Configure openio-shinken-import module
+- name: Fetch mod-influxdb
+  become: true
+  become_user: shinken
+  git:
+      repo: https://github.com/savoirfairelinux/mod-influxdb.git
+      dest: /tmp/mod-influxdb
+      version: add_custom_tag
+      accept_hostkey: true
+
+- name: Create shinken home dir
+  file:
+    path: /home/shinken
+    state: directory
+    owner: shinken
+    group: shinken
+    mode: 0775
+
+- name: Set up Shinken CLI
+  command: shinken --init
+
+- name: Install mod-influxdb
+  command: shinken install --local /tmp/mod-influxdb
+
+- name: Install python-influxdb
+  package:
+    name: python-influxdb
+    state: present
+
+- name: Configure mod-influxdb
+  template:
+    dest: "{{ config_dir }}/modules/influxdb.cfg"
+    src: modules/influxdb.cfg.j2
+
+- name : Cleanup
+  file:
+    state: absent
+    path: /tmp/influxdb

@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+## Module:      OpenIO
+## Loaded by:	  Arbiter
+# Used to load hosts from the OpenIO dashboard
+define module {
+   module_name      openio_import
+   module_type      openio_import
+   security_key     {{ openio_import.key }}
+   host             {{ openio_import.host }}
+   port             {{ openio_import.port }}
+}
