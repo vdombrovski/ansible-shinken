@@ -5,56 +5,34 @@
     dest: "{{ shinken_config_dir }}/arbiters/arbiter-master.cfg"
     state: present
     regexp: '.*[^#] modules.*'
-    line: "    modules {{ shinken_mods['arbiter'] if shinken_mods['arbiter'] else [] | join(',') }}"
+    line: "    modules {{ shinken_mods['arbiter'] | join(',') if shinken_mods['arbiter'] else ''  }}"
 
 - name: Update services - Broker
   lineinfile:
     dest: "{{ shinken_config_dir }}/brokers/broker-master.cfg"
     state: present
     regexp: '.*[^#] modules.*'
-    line: "    modules {{ shinken_mods['broker'] if shinken_mods['broker'] else [] | join(',') }}"
+    line: "    modules {{ shinken_mods['broker'] | join(',') if shinken_mods['broker'] else '' }}"
 
 - name: Update services - Scheduler
   lineinfile:
     dest: "{{ shinken_config_dir }}/schedulers/scheduler-master.cfg"
     state: present
     regexp: '.*[^#] modules.*'
-    line: "    modules {{ shinken_mods['scheduler'] if shinken_mods['scheduler'] else [] | join(',') }}"
-
-# Use Systemd when possible
-
-- name: Setup Systemd unit for arbiter
-  when: "ansible_service_mgr == 'systemd'"
-  template:
-    dest=/lib/systemd/system/shinken-arbiter.service
-    src=systemd/shinken-arbiter.service.j2
-
-- name: Setup Systemd units for other services
-  when: "ansible_service_mgr == 'systemd'"
-  with_items: ['scheduler', 'reactionner', 'broker', 'poller', 'receiver']
-  template:
-    dest=/lib/systemd/system/shinken-{{item}}.service
-    src=systemd/shinken-service.service.j2
-
-- name: Setup Shinken target
-  when: "ansible_service_mgr == 'systemd'"
-  template:
-    dest=/lib/systemd/system/shinken.target
-    src=systemd/shinken.target.j2
-
-- name: Enable Systemd units
-  when: "ansible_service_mgr == 'systemd'"
-  command: systemctl enable shinken.target
-
-- name: Start Systemd units
-  when: "ansible_service_mgr == 'systemd'"
-  command: systemctl start shinken.target
+    line: "    modules {{ shinken_mods['scheduler'] | join(',') if shinken_mods['scheduler'] else '' }}"
 
 - name: Restart Shinken
   debug:
     msg: "Setup completed"
   changed_when: True
   notify:
-    - Validate Configuration
+    - validate config
     - restart shinken
     - restart shinken systemd
+
+- name: Display warning when using docker + CentOS7
+  when: ansible_virtualization_type == 'docker' and shinken_distro == 'CentOS-7'
+  debug:
+      msg: |
+        It looks like you are using docker on CentOS 7, which doesn't have systemd access nor an installed 'initscripts'
+        You will need to start shinken services manually one by one.

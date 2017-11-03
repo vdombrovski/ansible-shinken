@@ -3,12 +3,12 @@
 - name: Create templates for generic hosts
   template:
     dest={{ shinken_config_dir }}/templates/generic-host.cfg
-    src=templates/generic-host.cfg.j2
+    src=templates/templates/generic-host.cfg.j2
 
 - name: Create templates for generic services
   template:
     dest={{ shinken_config_dir }}/templates/generic-service.cfg
-    src=templates/generic-service.cfg.j2
+    src=templates/templates/generic-service.cfg.j2
 
 - name: Create contacts
   with_items: "{{ shinken_contacts }}"

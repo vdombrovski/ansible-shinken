@@ -22,6 +22,7 @@ This role requires ansible and git to be installed
 
 List of compatible distros:
 - Ubuntu 16.04 (xenial)
+- CentOS 7 (openio_import module is not available)
 
 Example:
 ---

@@ -1,0 +1,10 @@
+- name: Mod check openio_import
+  when: "shinken_mods['arbiter'] and ('openio_import' in shinken_mods['arbiter'])"
+  fail:
+    msg: "Mod 'openio_import' is unavailable on current distro"
+
+- name: Install Shinken
+  with_items: ['shinken', 'shinken-arbiter', 'shinken-receiver', 'shinken-scheduler', 'shinken-poller', 'shinken-broker', 'shinken-reactionner']
+  yum:
+      name: "{{item}}"
+      state: present

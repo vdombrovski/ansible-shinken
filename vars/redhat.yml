@@ -6,3 +6,4 @@ shinken_monitoring_plugins:
 shinken_pycurl_build_deps:
  - libcurl-devel
 
+shinken_nsca: nsca-client

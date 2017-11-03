@@ -1,0 +1,21 @@
+- name: Repo check
+  when: not shinken_install_vars['ubuntu']['repourl']
+  fail:
+    msg: "Shinken repository not specified"
+
+- name: Add repo key
+  when: shinken_install_vars['ubuntu']['repokey']
+  apt_key:
+    url: "{{shinken_repokey}}"
+    state: present
+
+-  name: Add repo for Shinken
+   apt_repository:
+    repo: "deb {{shinken_install_vars['ubuntu']['repourl']}}"
+    state: present
+    update_cache: yes
+
+- name: Install Shinken
+  package:
+    name: shinken
+    state: present

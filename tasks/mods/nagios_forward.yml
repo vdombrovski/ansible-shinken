@@ -2,7 +2,7 @@
 # Configure alert forwarding to Nagios
 - name: Install NSCA Client
   package:
-    name: nsca-ng-client
+    name: "{{shinken_nsca}}"
     state: present
 
 - name: Configure /etc/send_nsca.cfg

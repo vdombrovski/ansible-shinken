@@ -9,3 +9,4 @@ shinken_pycurl_build_deps:
  - python-dev
  - libssl-dev
 
+shinken_nsca: nsca-ng-client

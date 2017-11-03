@@ -1,8 +1,14 @@
 ---
 shinken_config_dir: /etc/shinken
 
+shinken_install_vars:
+    ubuntu:
+        repourl: # Repository URL that contains shinken and openio_import if needed
+        repokey: # Repository key
+
 shinken_supported_distros:
     - Ubuntu-16.04
+    - CentOS-7
 
 shinken_contacts:
     -   contact_name: 'admin'

@@ -1,8 +1,11 @@
 -   hosts: localhost
     vars:
-        # Setup config
-        shinken_repokey: # Insert repokey if required
-        shinken_repourl: # Repository URL that contains shinken and openio_import if needed
+        # Install variables. Specify only those required for your distros
+        shinken_install_vars:
+            ubuntu:
+                repourl: # Repository URL that contains shinken and openio_import if needed
+                repokey: # Repository key
+
 
         # Internal config: add hosts, services or contacts here
         shinken_hosts:
@@ -21,7 +24,7 @@
         # Mod enabling: uncomment mods to enable them
         shinken_mods:
             arbiter:
-                # - openio_import
+                # - openio_import (Ubuntu Xenial only)
                 # - named-pipe
             broker:
                 # - influxdb

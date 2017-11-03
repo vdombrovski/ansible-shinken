@@ -1,0 +1,22 @@
+# Use Systemd when possible
+
+- name: Setup Systemd unit for arbiter
+  when: "{{ansible_distribution | lower}} in ('ubuntu', )"
+  template:
+    dest=/lib/systemd/system/shinken-arbiter.service
+    src=systemd/shinken-arbiter.service.j2
+
+- name: Setup Systemd units for other services
+  when: "{{ansible_distribution | lower}} in ('ubuntu', )"
+  with_items: ['scheduler', 'reactionner', 'broker', 'poller', 'receiver']
+  template:
+    dest=/lib/systemd/system/shinken-{{item}}.service
+    src=systemd/shinken-service.service.j2
+
+- name: Setup Shinken target
+  template:
+    dest=/lib/systemd/system/shinken.target
+    src=systemd/shinken.target.j2
+
+- name: Enable Systemd units
+  command: systemctl enable shinken.target

@@ -1,13 +1,30 @@
 ---
 # Configure openio-shinken-import module
 - name: Fetch mod-influxdb
-  become: true
-  become_user: shinken
   git:
       repo: https://github.com/savoirfairelinux/mod-influxdb.git
       dest: /tmp/mod-influxdb
       version: add_custom_tag
       accept_hostkey: true
+
+- name: Check for shinken group
+  group:
+    name: shinken
+    state: present
+
+- name: Check for shinken user
+  user:
+    name: shinken
+    group: shinken
+    state: present
+
+- name: Fix permissions
+  file:
+    path: /tmp/mod-influxdb
+    owner: shinken
+    group: shinken
+    recurse: True
+    mode: 0744
 
 - name: Create shinken home dir
   file:
@@ -22,6 +39,13 @@
 
 - name: Install mod-influxdb
   command: shinken install --local /tmp/mod-influxdb
+
+- name: Add repository
+  yum_repository:
+    name: openio-sds-17.04
+    description: OpenIO SDS Release 17.04
+    baseurl: http://mirror.openio.io/pub/repo/openio/sds/17.04/el/7/x86_64/
+    gpgcheck: no
 
 - name: Install python-influxdb
   package:

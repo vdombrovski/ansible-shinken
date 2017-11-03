@@ -1,12 +1,16 @@
 ---
-- name: Validate configuration
-  # Service command can't be used as it doesn't support 'check'
-  command: service shinken check
+- name: validate config
+  shell: |
+    shinken-arbiter -v -c {{shinken_config_dir}}/shinken.cfg | grep ERROR || true \
+    && shinken-arbiter -v -c {{shinken_config_dir}}/shinken.cfg &> /dev/null
 
 - name: restart shinken systemd
-  when: "ansible_service_mgr == 'systemd'"
+  when: ansible_service_mgr == 'systemd'
   command: systemctl restart shinken.target
 
 - name: restart shinken
-  when: "ansible_service_mgr != 'systemd'"
-  service: name=shinken state=restarted
+  when: ansible_service_mgr == 'service' and not(ansible_virtualization_type == 'docker' and shinken_distro == 'CentOS-7')
+  ignore_errors: yes
+  service:
+      name: shinken
+      state: restarted
