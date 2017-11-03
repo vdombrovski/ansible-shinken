@@ -5,7 +5,7 @@
 
 - name: restart shinken systemd
   when: "ansible_service_mgr == 'systemd'"
-  command: /usr/bin/systemd restart shinken.target
+  command: systemctl restart shinken.target
 
 - name: restart shinken
   when: "ansible_service_mgr != 'systemd'"

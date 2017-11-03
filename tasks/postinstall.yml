@@ -44,11 +44,11 @@
 
 - name: Enable Systemd units
   when: "ansible_service_mgr == 'systemd'"
-  command: /usr/bin/systemd enable shinken.target
+  command: systemctl enable shinken.target
 
 - name: Start Systemd units
   when: "ansible_service_mgr == 'systemd'"
-  command: /usr/bin/systemd start shinken.target
+  command: systemctl start shinken.target
 
 - name: Restart Shinken
   debug:
