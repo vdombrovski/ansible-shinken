@@ -1,10 +1,11 @@
 [Unit]
 Description=Shinken Arbiter
 After=syslog.target
+PartOf=shinken.target
 
 [Service]
 Type=forking
-ExecStart=/usr/sbin/shinken-arbiter -d -r -c /etc/shinken/shinken.cfg
+ExecStart=/usr/bin/shinken-arbiter -d -r -c /etc/shinken/shinken.cfg
 KillMode=mixed
 TimeoutStopSec=30
 PIDFile=/var/run/shinken/arbiterd.pid

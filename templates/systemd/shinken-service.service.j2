@@ -1,10 +1,11 @@
 [Unit]
 Description=Shinken {{item}}
 After=syslog.target
+PartOf=shinken.target
 
 [Service]
 Type=forking
-ExecStart=/usr/sbin/shinken-{{item}} -d -c /etc/shinken/daemons/{{item}}d.ini
+ExecStart=/usr/bin/shinken-{{item}} -d -c /etc/shinken/daemons/{{item}}d.ini
 KillMode=mixed
 TimeoutStopSec=30
 PIDFile=/var/run/shinken/{{item}}d.pid

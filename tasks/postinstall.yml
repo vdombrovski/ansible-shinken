@@ -31,7 +31,7 @@
 
 - name: Setup Systemd units for other services
   when: "ansible_service_mgr == 'systemd'"
-  with_items: "['scheduler', 'reactionner', 'broker', 'poller', 'receiver']"
+  with_items: ['scheduler', 'reactionner', 'broker', 'poller', 'receiver']
   template:
     dest=/lib/systemd/system/shinken-{{item}}.service
     src=systemd/shinken-service.service.j2
