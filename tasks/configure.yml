@@ -2,40 +2,40 @@
 
 - name: Create templates for generic hosts
   template:
-    dest={{ config_dir }}/templates/generic-host.cfg
+    dest={{ shinken_config_dir }}/templates/generic-host.cfg
     src=templates/generic-host.cfg.j2
 
 - name: Create templates for generic services
   template:
-    dest={{ config_dir }}/templates/generic-service.cfg
+    dest={{ shinken_config_dir }}/templates/generic-service.cfg
     src=templates/generic-service.cfg.j2
 
 - name: Create contacts
-  with_items: "{{ contacts }}"
+  with_items: "{{ shinken_contacts }}"
   template:
     src=contacts.cfg.j2
-    dest={{ config_dir }}/contacts/{{ item.contact_name | mandatory }}.cfg
+    dest={{ shinken_config_dir }}/contacts/{{ item.contact_name | mandatory }}.cfg
     mode=640
 
 - name: Add services
-  with_items: "{{ services }}"
+  with_items: "{{ shinken_services }}"
   template:
-    dest={{config_dir}}/services/{{ item.service_description }}.cfg
+    dest={{shinken_config_dir}}/services/{{ item.service_description }}.cfg
     src=services.cfg.j2
 
 - name: Add hosts
-  with_items: "{{ hosts }}"
+  with_items: "{{ shinken_hosts }}"
   template:
-    dest={{config_dir}}/hosts/{{item.host_name}}.cfg
+    dest={{shinken_config_dir}}/hosts/{{item.host_name}}.cfg
     src=hosts.cfg.j2
 
 # Following Jinja magic thanks to mikecee
 - name: Get hostgroups
   set_fact:
-    hglist="{{ hosts | sum(attribute='hostgroups', start=[]) | unique }} + ['all']"
+    hglist="{{ shinken_hosts | sum(attribute='hostgroups', start=[]) | unique }} + ['all']"
 
 - name: Add hostgroups
   with_items: "{{hglist}}"
   template:
-    dest={{ config_dir }}/hostgroups/{{ item }}.cfg
+    dest={{ shinken_config_dir }}/hostgroups/{{ item }}.cfg
     src=hostgroups.cfg.j2

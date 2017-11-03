@@ -2,24 +2,24 @@
 
 - name: Update services - Arbiter
   lineinfile:
-    dest: "{{ config_dir }}/arbiters/arbiter-master.cfg"
+    dest: "{{ shinken_config_dir }}/arbiters/arbiter-master.cfg"
     state: present
     regexp: '.*[^#] modules.*'
-    line: "    modules {{ mods['arbiter'] if mods['arbiter'] else [] | join(',') }}"
+    line: "    modules {{ shinken_mods['arbiter'] if shinken_mods['arbiter'] else [] | join(',') }}"
 
 - name: Update services - Broker
   lineinfile:
-    dest: "{{ config_dir }}/brokers/broker-master.cfg"
+    dest: "{{ shinken_config_dir }}/brokers/broker-master.cfg"
     state: present
     regexp: '.*[^#] modules.*'
-    line: "    modules {{ mods['broker'] if mods['broker'] else [] | join(',') }}"
+    line: "    modules {{ shinken_mods['broker'] if shinken_mods['broker'] else [] | join(',') }}"
 
 - name: Update services - Scheduler
   lineinfile:
-    dest: "{{ config_dir }}/schedulers/scheduler-master.cfg"
+    dest: "{{ shinken_config_dir }}/schedulers/scheduler-master.cfg"
     state: present
     regexp: '.*[^#] modules.*'
-    line: "    modules {{ mods['scheduler'] if mods['scheduler'] else [] | join(',') }}"
+    line: "    modules {{ shinken_mods['scheduler'] if shinken_mods['scheduler'] else [] | join(',') }}"
 
 # Use Systemd when possible
 
@@ -40,7 +40,7 @@
   when: "ansible_service_mgr == 'systemd'"
   template:
     dest=/lib/systemd/system/shinken.target
-    src=systemd/shinken.target
+    src=systemd/shinken.target.j2
 
 - name: Enable Systemd units
   when: "ansible_service_mgr == 'systemd'"

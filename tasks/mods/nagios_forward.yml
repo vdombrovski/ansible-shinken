@@ -12,10 +12,10 @@
 
 - name: Add Nagios contact
   template:
-    dest: "{{ config_dir }}/contacts/nagios.cfg"
+    dest: "{{ shinken_config_dir }}/contacts/nagios.cfg"
     src: contacts/nagios.cfg.j2
 
 - name: Add Host/Service check commands
   template:
-    dest: "{{ config_dir }}/commands/nagios_forward.cfg"
+    dest: "{{ shinken_config_dir }}/commands/nagios_forward.cfg"
     src: commands/nagios_forward.cfg.j2

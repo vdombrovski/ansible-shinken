@@ -7,5 +7,5 @@
 
 - name: Configure named-pipe
   template:
-    dest: "{{config_dir}}/modules/named-pipe.cfg"
+    dest: "{{shinken_config_dir}}/modules/named-pipe.cfg"
     src: modules/named-pipe.cfg.j2

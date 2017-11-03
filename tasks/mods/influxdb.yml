@@ -30,7 +30,7 @@
 
 - name: Configure mod-influxdb
   template:
-    dest: "{{ config_dir }}/modules/influxdb.cfg"
+    dest: "{{ shinken_config_dir }}/modules/influxdb.cfg"
     src: modules/influxdb.cfg.j2
 
 - name : Cleanup

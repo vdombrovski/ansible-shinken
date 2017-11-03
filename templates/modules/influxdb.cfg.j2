@@ -6,11 +6,11 @@
 define module {
     module_name     influxdb
     module_type     influxdb_perfdata
-    host            {{influxdb.host}}
-    port            {{influxdb.port}}
-    user            {{influxdb.user}}
-    password        {{influxdb.password}}
-    database        {{influxdb.db}}
+    host            {{shinken_influxdb.host}}
+    port            {{shinken_influxdb.port}}
+    user            {{shinken_influxdb.user}}
+    password        {{shinken_influxdb.password}}
+    database        {{shinken_influxdb.db}}
     #use_udp        1 ; default value is 0, 1 to use udp
     #udp_port        4444
     #tick_limit     300 ; Default value 300

@@ -4,18 +4,18 @@
 - include: configure.yml
 
 - include: mods/influxdb.yml
-  when: "mods['broker'] and ('influxdb' in mods['broker'])"
+  when: "shinken_mods['broker'] and ('influxdb' in shinken_mods['broker'])"
 
 - include: mods/nagios_forward.yml
-  when: "mods['misc'] and ('forward_nagios' in mods['misc'])"
+  when: "shinken_mods['misc'] and ('forward_nagios' in shinken_mods['misc'])"
 
 - include: mods/openio_import.yml
-  when: "mods['arbiter'] and ('openio_import' in mods['arbiter'])"
+  when: "shinken_mods['arbiter'] and ('openio_import' in shinken_mods['arbiter'])"
 
 - include: mods/retention_redis.yml
-  when: "mods['scheduler'] and ('RedisRetention' in mods['scheduler'])"
+  when: "shinken_mods['scheduler'] and ('RedisRetention' in shinken_mods['scheduler'])"
 
 - include: mods/named_pipe.yml
-  when: "mods['arbiter'] and ('named-pipe' in mods['arbiter'])"
+  when: "shinken_mods['arbiter'] and ('named-pipe' in shinken_mods['arbiter'])"
 
 - include: postinstall.yml

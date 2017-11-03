@@ -1,24 +1,24 @@
 ---
 
 - name: Compatibility check
-  when: "\'{{ansible_distribution}}-{{ansible_distribution_version}}\' not in supported_distros"
+  when: "\'{{ansible_distribution}}-{{ansible_distribution_version}}\' not in shinken_supported_distros"
   fail:
-    msg: "{{ansible_distribution}}-{{ansible_distribution_version}} not in supported distros: {{supported_distros | join(', ')}}"
+    msg: "{{ansible_distribution}}-{{ansible_distribution_version}} not in supported distros: {{shinken_supported_distros | join(', ')}}"
 
 - name: Repo check
-  when: not repourl
+  when: not shinken_repourl
   fail:
     msg: "Shinken repository not specified"
 
 - name: Add repo key
-  when: repokey
+  when: shinken_repokey
   apt_key:
-    url: "{{repokey}}"
+    url: "{{shinken_repokey}}"
     state: present
 
 -  name: Add repo for Shinken
    apt_repository:
-    repo: "deb {{repourl}}"
+    repo: "deb {{shinken_repourl}}"
     state: present
     update_cache: yes
 

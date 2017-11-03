@@ -1,4 +1,4 @@
 # {{ ansible_managed }}
-{% for key, value in forward_nagios.iteritems() %}
+{% for key, value in shinken_forward_nagios.iteritems() %}
   {{key}}="{{value}}"
 {% endfor %}

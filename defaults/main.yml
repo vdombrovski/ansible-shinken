@@ -1,10 +1,10 @@
 ---
-config_dir: /etc/shinken
+shinken_config_dir: /etc/shinken
 
-supported_distros:
+shinken_supported_distros:
     - Ubuntu-16.04
 
-contacts:
+shinken_contacts:
     -   contact_name: 'admin'
         email: 'admin@example.com'
         password: 'password'
@@ -12,7 +12,7 @@ contacts:
         is_admin: 1
         expert: 1
 
-mods:
+shinken_mods:
     arbiter:
     broker:
     misc:

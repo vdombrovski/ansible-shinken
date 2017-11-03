@@ -17,7 +17,7 @@ define service{
     notification_period             24x7
     contact_groups                  admins
     register                        0
-    {% if mods['misc'] and ('forward_nagios' in mods['misc']) %}
+    {% if shinken_mods['misc'] and ('forward_nagios' in shinken_mods['misc']) %}
     contacts			            nagios
     {% endif %}
 }

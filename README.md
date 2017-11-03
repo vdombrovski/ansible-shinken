@@ -20,7 +20,7 @@ Requirements
 
 This role requires ansible and git to be installed
 
-Compatible distros:
+List of compatible distros:
 - Ubuntu 16.04 (xenial)
 
 Example:

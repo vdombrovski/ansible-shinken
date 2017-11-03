@@ -7,15 +7,15 @@
 
 - name: Configure openio_import
   template:
-    dest: "{{config_dir}}/modules/openio_import.cfg"
+    dest: "{{shinken_config_dir}}/modules/openio_import.cfg"
     src: modules/openio_import.cfg.j2
 
 - name: Create openio-host template
   template:
-    dest={{config_dir}}/templates/openio-host.cfg
+    dest={{shinken_config_dir}}/templates/openio-host.cfg
     src=templates/openio-host.cfg.j2
 
 - name: Create openio-service template
   template:
-    dest={{config_dir}}/templates/openio-service.cfg
+    dest={{shinken_config_dir}}/templates/openio-service.cfg
     src=templates/openio-service.cfg.j2

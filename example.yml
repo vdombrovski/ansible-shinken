@@ -1,16 +1,16 @@
 -   hosts: localhost
     vars:
         # Setup config
-        repokey: # Insert repokey if required
-        repourl: # Repository URL that contains shinken and openio_import if needed
+        shinken_repokey: # Insert repokey if required
+        shinken_repourl: # Repository URL that contains shinken and openio_import if needed
 
         # Internal config: add hosts, services or contacts here
-        hosts:
+        shinken_hosts:
             - { host_name: 'localhost', hostgroups: [ 'all' ] }
-        services:
+        shinken_services:
             - { service_description: 'ping_test', check_command: 'check_ping', hostgroup_name: ['all'] }
             - { service_description: 'port_7776_test', check_command: 'check_tcp!7776', hostgroup_name: ['all'] }
-        contacts:
+        shinken_contacts:
             -   contact_name: 'admin'
                 email: 'admin@example.com'
                 password: 'secret'
@@ -19,7 +19,7 @@
                 expert: 1
 
         # Mod enabling: uncomment mods to enable them
-        mods:
+        shinken_mods:
             arbiter:
                 # - openio_import
                 # - named-pipe
@@ -31,17 +31,17 @@
                 # - RedisRetention
 
         # Mod config
-        openio_import:
+        shinken_openio_import:
             host: 127.0.0.1
             port: 8002
             key: secret
-        influxdb:
+        shinken_influxdb:
             host: 127.0.0.1
             port: 8086
             user: root
             password: secret
             db: shinken
-        forward_nagios:
+        shinken_forward_nagios:
             identity: web-checker
             password: secretz
             server: localhost
@@ -49,9 +49,9 @@
             delay: 2
             port: 5668
             timeout: 10
-        named_pipe:
+        shinken_named_pipe:
             command_file: /var/lib/nagios.cmd
-        redis_retention:
+        shinken_redis_retention:
             server: 127.0.0.1
 
     roles:
