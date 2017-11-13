@@ -23,3 +23,37 @@ shinken_mods:
     broker:
     misc:
     scheduler:
+
+# Default configuration options for modules
+shinken_openio_import:
+    host: 127.0.0.1
+    port: 8002
+    key: secret
+shinken_influxdb:
+    host: 127.0.0.1
+    port: 8086
+    user: root
+    password: secret
+    db: shinken
+shinken_forward_nagios:
+    identity: web-checker
+    password: secret
+    server: localhost
+    tls_ciphers: PSK-AES256-CBC-SHA
+    delay: 2
+    port: 5668
+    timeout: 10
+shinken_named_pipe:
+    command_file: /var/lib/nagios.cmd
+shinken_redis_retention:
+    server: 127.0.0.1
+shinken_webui2:
+    host: 0.0.0.0
+    port: 7767
+
+shinken_webui2:
+    host: 0.0.0.0
+    port: 7767
+    secret: yesman
+    login_text: "Login"
+shinken_webui2_secret: "{{ 999999999999999999999999999999 | int | random | string + (lookup('pipe', 'date +%s%N')) | password_hash('sha512') }}"

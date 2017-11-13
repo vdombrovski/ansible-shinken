@@ -14,3 +14,14 @@
   service:
       name: shinken
       state: restarted
+
+- name: restart mongodb systemd
+  when: ansible_service_mgr == 'systemd'
+  command: systemctl restart mongodb.service
+
+- name: restart mongodb
+  when: ansible_service_mgr == 'service' and not(ansible_virtualization_type == 'docker' and shinken_distro == 'CentOS-7')
+  ignore_errors: yes
+  service:
+      name: mongodb
+      state: restarted

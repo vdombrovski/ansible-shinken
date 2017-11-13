@@ -10,3 +10,10 @@ shinken_pycurl_build_deps:
  - libssl-dev
 
 shinken_nsca: nsca-ng-client
+
+shinken_webui_deps:
+    - mongodb
+    - python-pymongo
+    - python-requests
+    - python-bottle
+    - python-arrow

@@ -13,7 +13,7 @@ Features:
     - redis-retention: Temporary store results in redis
     - forward_nagios: forward alerts to nagios NSCA server (requires Nagios + ng-nsca-server)
     - named-pipe: linux pipe for passing commands to shinken
-    - webui: WIP, not yet available
+    - webui2: Shinken web interface version 2
 
 Requirements
 ---

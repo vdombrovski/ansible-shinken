@@ -1,0 +1,7 @@
+# This is a workaround for enabling the repo on CentOS only
+- name: Add yum repo (CentOS)
+  yum_repository:
+      name: openio-sds-17.04
+      description: OpenIO SDS Release 17.04
+      baseurl: http://mirror.openio.io/pub/repo/openio/sds/17.04/el/7/x86_64/
+      gpgcheck: no

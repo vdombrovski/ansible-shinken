@@ -6,7 +6,7 @@
 - name: Add repo key
   when: shinken_install_vars['ubuntu']['repokey']
   apt_key:
-    url: "{{shinken_repokey}}"
+    url: "{{shinken_install_vars.ubuntu.repokey}}"
     state: present
 
 -  name: Add repo for Shinken

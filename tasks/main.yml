@@ -18,6 +18,9 @@
 - include: mods/named_pipe.yml
   when: "shinken_mods['arbiter'] and ('named-pipe' in shinken_mods['arbiter'])"
 
+- include: mods/webui2.yml
+  when: "shinken_mods['broker'] and ('webui2' in shinken_mods['broker'])"
+
 - include: systemd.yml
   when: "ansible_service_mgr == 'systemd'"
 

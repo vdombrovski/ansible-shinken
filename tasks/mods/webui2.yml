@@ -1,0 +1,25 @@
+---
+- name: Set up Shinken CLI
+  command: shinken --init
+
+- name: Install deps
+  with_items: "{{shinken_webui_deps}}"
+  package:
+    name: "{{item}}"
+    state: present
+
+- name: Install webui2
+  command: shinken install webui2
+
+- name: Add Web Administrator contact
+  template:
+    dest: "{{ shinken_config_dir }}/contacts/web_admin.cfg"
+    src: contacts/web_admin.cfg.j2
+
+- name: Configure webui2
+  template:
+    dest: "{{shinken_config_dir}}/modules/webui2.cfg"
+    src: modules/webui2.cfg.j2
+  notify:
+    - restart mongodb
+    - restart mongodb systemd

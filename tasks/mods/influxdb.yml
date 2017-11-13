@@ -40,12 +40,8 @@
 - name: Install mod-influxdb
   command: shinken install --local /tmp/mod-influxdb
 
-- name: Add repository
-  yum_repository:
-    name: openio-sds-17.04
-    description: OpenIO SDS Release 17.04
-    baseurl: http://mirror.openio.io/pub/repo/openio/sds/17.04/el/7/x86_64/
-    gpgcheck: no
+- include: mods/influxdb_repo_centos.yml
+  when: ansible_distribution|lower in ('centos',)
 
 - name: Install python-influxdb
   package:

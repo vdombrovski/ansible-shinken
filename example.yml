@@ -28,6 +28,7 @@
                 # - named-pipe
             broker:
                 # - influxdb
+                # - webui2
             misc:
                 # - forward_nagios
             scheduler:
@@ -56,6 +57,9 @@
             command_file: /var/lib/nagios.cmd
         shinken_redis_retention:
             server: 127.0.0.1
+        shinken_webui2:
+            host: 0.0.0.0
+            port: 7767
 
     roles:
         - { role: ansible-shinken }
